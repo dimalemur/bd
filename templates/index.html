@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/style.css">
+  <title>Document</title>
+  <script src="../static/index.js"></script>
+
+</head>
+
+<body>
+  <div class="entry-content">
+    <div class="login">
+      <h1>Введите логин и пароль</h1>
+      <form id='autorize' name="autorize">
+        <p><input id="login" type="text" name="login" required="" placeholder="Логин"></p>
+        <p><input id="password" type="password" name="password" required="" placeholder="Пароль"></p>
+        <p class="submit"><input type="submit" name="commit" value="Войти"></p>
+      </form>
+
+      <p id="help"></p>
+      <p>ПОДСКАЗКА:</p>
+      <p>Логин: liza</p>
+      <p>Пароль: asd</p>
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+
+  <div id="InfoFirst"></div>
+
+  <div id="Add">
+
+    <form id = 'AddLesson'>
+      <label for="AddLessonInp"><b>Предмет:</b></label>
+
+      <select id="AddLessonInp">
+      </select>
+
+      <p class="submit"><input type="submit" name="commit" value="Добавить предмет"></p>
+    </form>
+
+    <form id = 'AddGroup'>
+      <label for="AddGroupInp"><b>Группа:</b></label>
+
+      <select id="AddGroupInpGroup">
+
+
+      </select>
+
+      <label for="AddGroupInp"><b>Предмет:</b></label>
+
+      <select id="AddGroupInpLesson">
+      </select>
+
+      <p class="submit"><input type="submit" name="commit" value="Добавить группу"></p>
+
+    </form>
+  </div>
+
+
+
+</body>
+
+</html>

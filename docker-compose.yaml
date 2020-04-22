@@ -1,0 +1,26 @@
+version: '3.6'
+
+services:
+  api:
+    build: .
+    depends_on:
+      - db
+    environment:
+      STAGE: test
+      SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://postgres:password@db/pd
+    ports:
+      - 8080:8080
+    restart: always
+
+  db:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pd
+    image: postgres:alpine
+    networks:
+      - default
+    ports:
+      - 5405:5432
+    restart: always
+    volumes:

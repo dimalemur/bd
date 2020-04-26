@@ -14,14 +14,25 @@ window.onload = () => {
 
   let login = document.getElementById('login'),
     password = document.getElementById('password'),
-    help = document.getElementById('help');
+    help = document.getElementById('help'),
+    groupsAll = document.getElementById('ChangeGroupForLessonInp'),
+    groupsAllText = document.getElementById('ChangeGroupForLessonText'),
+    lessonsAll = document.getElementById('ChangeLessonForGroupInp'),
+    lessonAllText = document.getElementById('ChangeLessonForGroupText');
+
+    ChangeLessonForGroupText
 
   let data;
   let lessons;
   let setLessons;
   let currntGroups;
-
+  let allGroups;
+  let allLessons;
+  let lessonsByGroup;
+  let groupByLesson;
   const setUserData = async () => {
+    allGroups = await asyncGetAllGruops();
+    allLessons = await asyncGetAllLessons();
     window.user_id = data.user_id;
     lessons = await asyncGetLessons(window.user_id);
     setLessons = await asyncGetSetLessons(window.user_id);
@@ -32,8 +43,21 @@ window.onload = () => {
     currntGroups = await asyncGetGruops(window.user_id, AddGroupInpLesson.value)
     AddGroupInpGroup.innerHTML = currntGroups.map((element) => `<option>${element}</option>`).join('');
 
+    groupsAll.innerHTML = allGroups.map((element) => `<option>${element}</option>`).join('');
 
-    document.getElementById("Add").style.display = 'flex';
+    lessonsByGroup = await asyncGetLessonByGroup(groupsAll.value);
+    groupsAllText.innerHTML = lessonsByGroup.map((element) => `<div>${element}</div>`).join('');
+
+    lessonsAll.innerHTML = allLessons.map((element) => `<option>${element}</option>`).join('');
+
+    groupByLesson = await asyncGetGroupByLesson(lessonsAll.value);
+    lessonAllText.innerHTML = groupByLesson.map((element) => `<div>${element.join(' - ')}</div>`).join(' ');
+
+
+
+
+
+    document.getElementById("Add").style.display = 'block';
     authForm.style.display = 'none';
 
     document.getElementById('InfoFirst').innerHTML = `<div class="Profile">
@@ -119,6 +143,76 @@ window.onload = () => {
     setUserData()
 
   })
+
+  document.getElementById('ChangeGroupForLessonInp').addEventListener('change', async (event) => {
+    lessonsByGroup = await asyncGetLessonByGroup(event.target.value);
+    groupsAllText.innerHTML = lessonsByGroup.map((element) => `<p>${element}</p>`).join('');
+
+  })
+
+  document.getElementById('ChangeLessonForGroupInp').addEventListener('change', async (event) => {
+    groupByLesson = await asyncGetGroupByLesson(event.target.value);
+    lessonAllText.innerHTML = groupByLesson.map((element) => `<div>${element.join(' - ')}</div>`).join(' ');
+
+  })
+
+  function asyncGetAllLessons() {
+    return fetch('/sendalllessons', {
+      credentials: 'same-origin',
+      method: 'GET',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        return data
+      })
+      .catch((error) => {
+        return error
+      });
+  };
+
+  function asyncGetGroupByLesson(lesson) {
+    return fetch('/groupbylesson', {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({ current_lesson: lesson })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        return data
+      })
+      .catch((error) => {
+        return error
+      });
+  };
+
+  function asyncGetLessonByGroup(group) {
+    return fetch('/lessonbygroup', {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({ current_group: group })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        return data
+      })
+      .catch((error) => {
+        return error
+      });
+  };
+
+  function asyncGetAllGruops() {
+    return fetch('/allgroups', {
+      credentials: 'same-origin',
+      method: 'GET',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        return data
+      })
+      .catch((error) => {
+        return error
+      });
+  };
 
   function asyncGetUser(login, password) {
     return fetch('/auth', {

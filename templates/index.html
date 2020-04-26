@@ -33,31 +33,53 @@
 
   <div id="Add">
 
-    <form id = 'AddLesson'>
-      <label for="AddLessonInp"><b>Предмет:</b></label>
+    <div class="Add-Inner">
+      <form id='AddLesson'>
+        <label for="AddLessonInp"><b>Предмет:</b></label>
 
-      <select id="AddLessonInp">
-      </select>
+        <select id="AddLessonInp">
+        </select>
 
-      <p class="submit"><input type="submit" name="commit" value="Добавить предмет"></p>
-    </form>
+        <p class="submit"><input type="submit" name="commit" value="Добавить предмет"></p>
+      </form>
 
-    <form id = 'AddGroup'>
-      <label for="AddGroupInp"><b>Группа:</b></label>
+      <form id='AddGroup'>
+        <label for="AddGroupInp"><b>Группа:</b></label>
 
-      <select id="AddGroupInpGroup">
+        <select id="AddGroupInpGroup">
 
 
-      </select>
+        </select>
 
-      <label for="AddGroupInp"><b>Предмет:</b></label>
+        <label for="AddGroupInp"><b>Предмет:</b></label>
 
-      <select id="AddGroupInpLesson">
-      </select>
+        <select id="AddGroupInpLesson">
+        </select>
 
-      <p class="submit"><input type="submit" name="commit" value="Добавить группу"></p>
+        <p class="submit"><input type="submit" name="commit" value="Добавить группу"></p>
+      </form>
+    </div>
 
-    </form>
+    <div class='Add-Inner' style = 'border: 2px solid;'>
+      <div>
+        <label for="AddGroupInp"><b>Узнать предметы по группе:</b></label>
+        <select id="ChangeGroupForLessonInp">
+        </select>
+        <div id="ChangeGroupForLessonText">
+
+        </div>
+      </div>
+
+      <div>
+        <label for="AddGroupInp"><b>Узнать группы по предмету:</b></label>
+        <select id="ChangeLessonForGroupInp">
+        </select>
+        <div id="ChangeLessonForGroupText">
+
+        </div>
+      </div>
+    </div>
+
   </div>
 
 

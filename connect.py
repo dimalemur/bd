@@ -1,6 +1,8 @@
 import psycopg2
 
-conn = psycopg2.connect(dbname='pd', user='postgres', password='password', host='localhost', port=5432)
+# password='password'
+# host='82.148.28.135'
+conn = psycopg2.connect(dbname='PD', user='postgres', host='localhost', port=5432)
 
 cur = conn.cursor()
 
@@ -11,6 +13,7 @@ def id_lesson_by_id_para(id_para):  # Получить id урока по id п�
 
 
 def get_lesson_by_id_lesson(id_lesson):  # Получить название урока по id урока
+    print(id_lesson)
     cur.execute("select lesson_name from lesson where id_lesson = " + str(id_lesson))
     return cur.fetchall()[0][0]
 
@@ -82,8 +85,10 @@ def get_id_paras_by_group(id_group):  # Получить пары по id гру
 
 # def get_para_tacher_and_lesson(id_para):  # Получить имя учителя и название урока по паре
 #     res = []
-#     cur.execute('select id_teacher,id_lesson from para where id_para = ' + str(id_para))
+#     cur.execute('select id_lesson from para where id_para = ' + str(id_para))
 #     groups = cur.fetchall()
+#     print(groups)
+#     return res
 
 
 def get_all_groups(exceptions):  # Получить все группы
@@ -93,6 +98,23 @@ def get_all_groups(exceptions):  # Получить все группы
     for group in groups:
         if group[0] not in exceptions:
             res.append(group[0])
+    return res
+
+
+def get_paras_for_group(group_id):  # Получить пары по группе
+    res = []
+    cur.execute("select id_para from groups_and_paras where  id_group = " + str(group_id))
+    groups = cur.fetchall()
+    for group in groups:
+        res.append(group[0])
+    return res
+
+def get_paras_for_lesson(lesson_id):  # Получить пары по группе
+    res = []
+    cur.execute("select id_para, id_teacher from para where id_lesson = " + str(lesson_id))
+    lessons = cur.fetchall()
+    for lesson in lessons:
+        res.append(lesson)
     return res
 
 
@@ -161,6 +183,11 @@ def get_lessons(teacher):  # Получить уроки по преподава
 
 def get_lesson_by_text(text):  # Получить id урока по названию
     cur.execute("select id_lesson from lesson where lesson_name= '" + text + "'")
+    return cur.fetchall()[0][0]
+
+
+def get_lesson_by_para(para_id):  # Получить урок по паре
+    cur.execute("select id_lesson from para where id_para = " + str(para_id))
     return cur.fetchall()[0][0]
 
 

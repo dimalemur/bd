@@ -5,7 +5,7 @@ window.onload = () => {
   let groups = document.createElement('div');
   groups.className = "groups";
   document.body.append(groups);
-
+  
   let authForm = document.getElementsByClassName('entry-content')[0];
   let Add = document.getElementById('Add');
   const AddGroupInpLesson = document.getElementById('AddGroupInpLesson');

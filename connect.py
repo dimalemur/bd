@@ -2,7 +2,7 @@ import psycopg2
 
 # password='password'
 # host='82.148.28.135'
-conn = psycopg2.connect(dbname='PD', user='postgres', host='localhost', port=5432)
+conn = psycopg2.connect(dbname='pd', user='postgres',password='password', host='82.148.28.135', port=5432)
 
 cur = conn.cursor()
 
